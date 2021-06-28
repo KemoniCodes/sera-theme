@@ -1,0 +1,96 @@
+<section class="section-3">
+    <div class="section">
+        <div class="container">
+            <h2 data-aos="fade-up"
+            data-aos-offset="180"
+            data-aos-delay="58"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true" style="margin-top: 10rem;">{{section.settings.title}} <span>{{section.settings.italic-span}}</span> Journal</h2>
+
+           
+
+            <div class="blog-container">    
+                <div class="blogs" style="justify-items: center; grid-template-columns: 325px 325px 325px;">
+                    {% for link in linklists[section.settings.blog].links %}
+                    {% assign blog = link.object %}
+                    {% for article in blog.articles limit: section.settings.post_limit%}
+
+                        <div class="blog-info" data-aos="fade-zoom-in"
+                        data-aos-offset="180"
+                        data-aos-delay="58"
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true">
+                            <h4 class="date">
+                                {{ article.published_at | date: "%B %Y" }}
+                            </h4>
+                            <a href="{{article.url}}">{% if article.image %}
+                                <img src="{{ article.image | img_url: '400x400' }}" class="article-img" data-aos="fade-zoom-in"
+                                data-aos-offset="190"
+                                data-aos-delay="60"
+                                data-aos-duration="1000"
+                                data-aos-easing="ease-in-out"
+                                data-aos-mirror="true">
+                            {% endif %}
+                            </a>
+                            <div class="titles">
+                                <h4>{{article.tags}}</h4>
+                                <h3><a href="{{article.url}}">{{article.title}}</a></h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+            <h3 id="collection-desc" data-aos="fade-up"
+            data-aos-offset="180"
+            data-aos-delay="58"
+            data-aos-duration="900"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"> {{section.settings.blog-desc}}</h3>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Home Section 3",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "From"
+        },
+        {
+            "type": "text",
+            "id": "italic-span",
+            "label": "italicize",
+            "default": "Our"
+        },
+        {        
+            "type": "textarea",
+            "id": "blog-desc",
+            "label": "Blog Section Description",
+            "default": "value",
+            "info": "text",
+            "placeholder": "text"
+        },
+        {
+            "type": "link_list",
+            "id": "blog",
+            "label": "Blog"
+        },
+        {
+            "type": "range",
+            "id": "post_limit",
+            "label": "Posts",
+            "min": 3,
+            "max": 3,
+            "step": 3,
+            "default": 3
+        }
+    ]
+}
+{% endschema %}

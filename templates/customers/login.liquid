@@ -1,0 +1,65 @@
+<section class="login" style="margin-top: -38rem;">
+    <div class="container" style="padding-right: 6rem;">
+        <h2 style="font-family: IvyPresto Headline Reg;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4rem;
+        text-align: left;
+        letter-spacing: .2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #2F2F2F;
+        padding-bottom: .5rem;">Login</h2>
+
+{% form 'customer_login' %}
+  {{ form.errors | default_errors }}
+
+  <div style="margin-bottom: .5rem;">
+    <label for="customerEmail">Email Address</label>
+    <input type="email"
+      name="customer[email]"
+      id="customerEmail"
+      autocorrect="off"
+      autocapitalize="off"
+      autocomplete="email" >
+  </div>
+  <div style="margin-bottom: 1rem;">
+    <label for="customerPassword">Password</label>
+    <input type="password"
+      name="customer[password]"
+      id="customerPassword"/>
+  </div>
+
+  <button type="submit" style="background-color: transparent;
+  border: #2F2F2F 1px solid;
+  font-size: 1rem;
+  font-family: 'Helvetica', sans-serif;
+  color: #433E3F;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-style: normal;
+  padding: .6rem;
+  letter-spacing: .3px;
+  margin-bottom: 1.5rem;
+  width: 10%;">Log In</button>
+
+  <p>
+    {{ 'Create Account' | customer_register_link }}
+  </p>
+  <p>
+    <a href="/pages/password-recovery">Forgot your password?</a>
+  </p>
+
+{% endform %}
+
+<!-- If accounts are set as optional, the following will be shown as an option when coming from checkout, not on the default /login page. -->
+{% if shop.checkout.guest_login %}
+  {% form 'guest_login' %}
+    <input type="submit" value="Continue as Guest" />
+  {% endform %}
+{% endif %}
+
+    </div>
+</section>
+
+

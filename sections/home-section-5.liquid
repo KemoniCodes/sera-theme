@@ -1,0 +1,65 @@
+<section class="section-5">
+    <div class="section">
+        <h2 data-aos="fade-up"
+        data-aos-offset="180"
+        data-aos-delay="58"
+        data-aos-duration="1000"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true">{{section.settings.title}}<span> {{section.settings.italic-span}} <br> </span>{{section.settings.title-1}}</h2>
+    </div>
+    {% assign collection = collections [section.settings.collection] %}
+        <div class="container">
+            {% for product in collection.products limit: section.settings.ig_limit %}
+            <div>
+                <div>
+                    <img src="{{product.featured_image.src | img_url: '250x250'}}" data-aos="fade-up"
+                    data-aos-offset="180"
+                    data-aos-delay="58"
+                    data-aos-duration="1000"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"/>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+
+
+{% schema %}
+    {
+        "name": "Home Section 5",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Follow"
+            },
+            {
+                "type": "text",
+                "id": "title-1",
+                "label": "Heading",
+                "default": "On Instagram"
+            },
+            {
+                "type": "text",
+                "id": "italic-span",
+                "label": "italicize",
+                "default": "Us"
+            },
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "IG Post"
+            },
+            {
+                "type": "range",
+                "id": "ig_limit",
+                "label": "IG Post Limit",
+                "min": 3,
+                "max": 9,
+                "default": 8
+            }
+        ]
+    }
+{% endschema %}

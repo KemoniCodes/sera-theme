@@ -1,0 +1,105 @@
+<section class="account" style="margin-top: -38rem;">
+    <div class="container" style="padding-right: 6rem;">
+        <h2 style="font-family: IvyPresto Headline Reg;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4rem;
+        text-align: left;
+        letter-spacing: .2px;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #2F2F2F;
+        padding-bottom: .5rem;">Your Account</h2>
+
+    <div class="customer-details" style="border-bottom: 1px solid #2F2F2F; margin-top: 3rem;">
+        <h3 style="font-family: IvyPresto Headline Reg;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 2rem;
+        text-align: left;
+        letter-spacing: .2px;
+        margin-bottom: 1.5rem;
+        padding-bottom: .5rem;
+        margin-top: 2rem;">
+            {{customer.first_name}}
+            {{customer.last_name}}
+        </h3>
+
+        {% if customer.default_address %}
+            <p>{{ customer.default_address.address1 }}</p>
+            {% if customer.default_address.address2 != "" %}
+                <p>{{ customer.default_address.address2 }}</p>
+            {% endif %}
+            <p>{{ customer.default_address.city}}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</p>
+            <p>{{ customer.default_address.zip }}</p>
+            <p>{{ customer.default_address.phone }}</p>
+        {% endif %}
+    </div>
+
+
+    {% for order in customer.orders %}
+        <div id="customer_orders">
+
+            {% paginate customer.orders by 10 %}
+            {% if customer.orders.size != 0 %}
+            <h3 style="text-transform: uppercase; margin-top: 2rem;">({{customer.orders_count}}) Order(s)</h3>
+
+            {% for line_item in order.line_items %}
+                <!-- <h4>{{ line_item.title | link_to: line_item.product.url }}</h4> -->
+
+                <div class="dropright-item cart-product" style="right: -4.3rem; position: relative; padding-bottom: 2rem; border-bottom: 1px solid; width: 1058px; margin-top: -1rem;">
+                    <div class="d-flex">
+                        <div class="img">
+                            <a href="{{line_item.product.url}}">
+                                <img src="{{line_item.product.featured_image | img_url: '2048x'}}" alt="..." class="img-fluid" style="max-width: 230px; height: auto; margin-left: 0rem; width: 230px;">
+                            </a>
+                        </div>
+                        <div class="details product-info" style="width: 320px; margin-right: 0px;">
+                            <div class="accnt" style="text-align: -webkit-left; left: 6.8rem; position: relative; top: -4rem;">
+                                <h4 class="img-1-text">
+                                <a href="{{line_item.product.url}}">{{line_item.product.title}}</a>
+                                </h4>
+                                <h4 class="img-1-text quantity" >Quantity: <input type="text" name="updates[]" value="{{line_item.quantity}}" class="quantity-no" style="border: 1px solid; margin-left: .3rem;" >
+                                </h4>
+                                <h4 class="price">{{line_item.product.price | money}} </h4>
+                                <!-- <h4 class="price" style="top: -5.3rem;position: relative;left: 44rem; left: 48rem;"> {{line_item.line_price | money}} </h4> -->
+                            </div>
+                        <input type="hidden" id="variant-id" name="id" value="{{line_item.product.id}}">
+                        <div class="col-2">
+                            <div class="d-flex align-items-center">
+                            <div class="quantity d-flex align-items-center">
+                                <!-- <div class="dec-btn">-</div> -->
+                                <!-- <div class="inc-btn">+</div> -->
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                </div>
+            
+            {% endfor %}
+
+            <!-- Content for account.liquid page -->
+          
+            {% else %}
+              <p style="font-family: 'Helvetica', sans-serif;
+              color: #433E3F;
+              font-size: 1.2rem;
+              padding-bottom: 1.2rem;
+              font-weight: 400;
+              letter-spacing: .2px;
+              text-transform: uppercase;
+              text-align: center;
+              top: 3rem;
+              position: relative;
+              width: max-content;
+              margin: auto;
+              margin-top: 5rem;">You haven't placed any orders yet.</p>
+            {% endif %}
+            {{ paginate | default_pagination }}
+            {% endpaginate %}
+
+        </div>
+
+        {% endfor %}
+    </div>
+</section>

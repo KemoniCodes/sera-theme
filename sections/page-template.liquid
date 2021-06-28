@@ -1,0 +1,95 @@
+<section class="page-template" style="margin-top: -35rem;">
+    <div class="container" style="position: relative;top: -10rem;">
+        {% if collections[page.handle].products.size > 0 %}
+
+        <div style="display: block; margin: auto;">
+            <h2>
+                {{page.title}}
+            </h2>
+            {% assign collection = collections[page.handle] %}
+
+            <img id="collection" src="{{ collection.image.src | collection_img_url: 'medium' }}" alt="" style="width: 350px; height: auto; margin: auto; display: block;"/>
+
+            <h2 id="collec" style="top: -8rem; left: 45.5rem;">
+                Collection
+            </h2>  
+       
+            {{page.content}}
+        </div>
+              
+                     
+            <div class="collection-products" style="display: block; width: auto; margin: auto; position: relative;">
+                <div style="width: min-content;
+            position: relative;
+            top: 14rem;">
+            
+            </div>
+                <div class="row" style="display: grid;
+                grid-template-columns: 450px 450px;
+                width: min-content;
+                justify-items: center;
+                margin: auto;
+                grid-row-gap: 4rem;">
+            {% for product in collections[page.handle].products %}
+                <div class="container-1" id="page-collections">
+                    
+                    <a href="{{product.url}}">
+                        <div class="img-3 reveal" data-aos="fade-up" data-aos-offset="190"
+                        data-aos-delay="55"
+                        data-aos-duration="800"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true">
+                            <img src="{{product.featured_image.src | img_url: '500x500'}}" style="width: 285px; height: 430px">
+                            <img class="hidden" src="{{ product.images.last | img_url: '500x500' }}" alt="{{ product.images.last.alt | escape }}" style="width: 285px; height: 430px"/>
+                          </div>
+                        </a>
+            
+                        <div class="product-info" data-aos="fade-up"
+                        data-aos-offset="50"
+                        data-aos-delay="57"
+                        data-aos-duration="750"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true">
+                            <h4 class="img-1-text"><a href="{{product.url}}">{{product.title}}</a></h4>
+                            <h4 class="price">{{product.price | money}}</h4>
+                        </div>
+                    </div>
+                    {% endfor%}
+                </div>
+            </div>
+        {% endif %}
+        <h3 id="collection-desc" data-aos="fade-up"
+        data-aos-offset="180"
+        data-aos-delay="58"
+        data-aos-duration="900"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true" style="padding-top: 12rem;">Shop our new pieces. This collection is all about moodiness<br>
+            and statement pieces. Our doubled pieces are our most<br>
+            loved. Shop now!
+        </h3>
+    </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+        "type": "image_picker",
+        "id": "coll-img",
+        "label": "Collection Page Image"          
+    }
+  ]
+}
+
+{% endschema %}
+
+
+
+
+
+
+
+
+

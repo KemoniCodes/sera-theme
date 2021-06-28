@@ -1,0 +1,65 @@
+<section class="login" style="margin-top: -38rem;">
+    <div class="container" style="padding-right: 6rem;">
+        <h2 style="font-family: IvyPresto Headline Reg;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4rem;
+        text-align: left;
+        letter-spacing: .2px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #2F2F2F;
+        padding-bottom: .5rem;">Register</h2>
+
+        {% form 'create_customer' %}
+            {{ form.errors | default_errors }}
+
+            <div style="margin-bottom: .5rem;">
+                <label for="first_name">First Name</label>
+                <input type="text"
+                name="customer[first_name]"
+                id="customerFirst"
+                autocorrect="off"
+                autocapitalize="off">
+            </div>
+            <div style="margin-bottom: .5rem;">
+                <label for="last_name">Last Name</label>
+                <input type="text"
+                name="customer[last_name]"
+                id="customerLast"
+                autocorrect="off"
+                autocapitalize="off">
+            </div>
+            <div style="margin-bottom: .5rem;">
+                <label for="customerEmail">Email Address</label>
+                <input type="email"
+                name="customer[email]"
+                id="customerEmail"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email" >
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label for="customerPassword">Password</label>
+                <input type="password"
+                name="customer[password]"
+                id="customerPassword"/>
+            </div>
+
+            <button type="submit" style="background-color: transparent;
+            border: #2F2F2F 1px solid;
+            font-size: 1rem;
+            font-family: 'Helvetica', sans-serif;
+            color: #433E3F;
+            text-transform: uppercase;
+            font-weight: 400;
+            font-style: normal;
+            padding: .6rem;
+            letter-spacing: .3px;
+            margin-bottom: 1.5rem;
+            width: 10%;">Register</button>
+
+
+        {% endform %}
+    </div>
+</section>

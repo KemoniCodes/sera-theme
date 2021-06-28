@@ -1,0 +1,43 @@
+<section class="home">
+    <div class="hero">
+            <h1 class="animated animatedFadeInUp fadeInUp">
+                {{settings.hero-txt}}
+            </h1>
+            <a href="/collections/all">
+                <button class="animated-1 animatedFadeInUp fadeInUp">
+                    SHOP NOW →
+                </button>
+            </a>
+        </div>
+        <div class="images animated-2 animatedFadeInUp fadeInUp">
+            <div class="img-container">
+                <div>
+                    <img class="img-1" src="{{settings.image-1 | img_url: '320x320'}}">
+                    <h4 class="img-1-text">{{settings.image-1-text}}</h4>
+                </div>
+                <div class="img-2-container">
+                    <img class="img-2" src="{{settings.image-2 | img_url: '450x450'}}">
+                    <h4 class="img-2-text">{{settings.image-2-text}}</h4>
+                </div>
+        </div>
+    </div>
+
+    <h4 id="atelier" style="display: none;">jewelry atelier</h4>
+    <img src="{{section.settings.background | img_url: '450x450'}}" style="display: none;" id="background">
+
+</section>
+
+
+{% schema %}
+{
+    "name": "Mobile Background Img",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "background",
+            "label": "Mobile Background Img"
+        }             
+    ]
+}
+{% endschema %}
+

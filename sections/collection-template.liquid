@@ -1,0 +1,114 @@
+{% paginate collection.products by 6 %}
+{% assign page_count = paginate.pages %}
+
+<section class="collection-template">
+    <div class="container" style="margin-left: 5rem;">
+
+            {% for link in linklists[section.settings.collections_sidebar].links %}
+                {% if link.links == blank %}
+                    <li class="nav-item active" style="list-style: none;">
+                        <a class="nav-link" href={{link.url}}>
+                            {{link.title}}
+                        </a>                
+                    </li>
+                {% endif %}
+              
+
+
+                    {% if link.links != blank %}
+
+                    <ul style="padding-left: 0;">
+                        <li class="nav-item" style="list-style: none;">
+                            <a class="nav-link" href="#" id="navbarDropdown" aria-haspopup="true" aria-expanded="true" style="cursor: pointer; padding-bottom: .3rem; margin-top: .8rem; font-weight: 500;">
+                                COLLECTIONS
+                            </a>
+                            <div class="" aria-labelledby="navbarDropdown">
+                                <div class="row" style="display: block;">
+                                    {% for childlink in link.links %}
+                                        <div class="col">
+                                            <a href="{{childlink.url}}">{{childlink.title}}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                    {% endif %}
+            {% endfor %}
+        
+            
+            <div class="collection-products" style="margin-top: -22.2rem; margin-left: 12.3rem;">
+                <div class="row" style="display: grid;
+                grid-template-columns: 350px 350px 350px;
+                width: min-content;
+                justify-items: center;
+                margin: auto;
+                padding-top: 5rem;
+                grid-row-gap: 4rem;">
+                    {% for product in collection.products %}
+                <div class="container-1" id="product-collections">
+                    
+                    <a href="{{product.url}}">
+                        <div class="img-3 reveal" data-aos="fade-up" data-aos-offset="190"
+                        data-aos-delay="55"
+                        data-aos-duration="800"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true">
+                            <img src="{{product.featured_image.src | img_url: '500x500'}}" style="width: 285px; height: 430px">
+                            <img class="hidden" src="{{ product.images.last | img_url: '500x500' }}" alt="{{ product.images.last.alt | escape }}" style="width: 285px; height: 430px"/>
+                          </div>
+                        </a>
+            
+                        <div class="product-info" data-aos="fade-up"
+                        data-aos-offset="50"
+                        data-aos-delay="57"
+                        data-aos-duration="750"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true">
+                            <h4 class="img-1-text"><a href="{{product.url}}">{{product.title}}</a></h4>
+                            <h4 class="price">{{product.price | money}}</h4>
+                        </div>
+                    </div>
+                    {% endfor%}
+                </div>
+                    <ul class="pagination pagination-custom">
+                      <li class="page-item">
+                        <a href="{{paginate.previous.url}}" aria-label="Previous" class="page-link">
+                          <span aria-hidden="true">Prev</span><span class="sr-only">Previous</span>
+                        </a>
+                      </li>
+          
+                      {% for part in (1..page_count) %}
+                        {% if paginate.current_page == part %}
+                          {% assign active_class = "active" %}
+                        {% else %}
+                          {% assign active_class = "" %}
+                        {% endif %}
+          
+                        <li class="page-item"><a href="{{collection.url}}?page={{forloop.index}}" class="page-link {{active_class}}">{{forloop.index}}</a></li>
+                      {% endfor %}
+          
+                      <li class="page-item">
+                        <a href="{{paginate.next.url}}" aria-label="Next" class="page-link">
+                          <span aria-hidden="true">Next</span>
+                          <span class="sr-only">Next     </span>
+                        </a>
+                      </li>
+                    </ul>
+            </div>
+    </div>
+</section>
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": "Collections",
+    "settings": [
+      {
+        "id": "collections_sidebar",
+        "type": "link_list",
+        "label": "Collections Sidebar"
+      }
+    ]
+  }
+{% endschema %}

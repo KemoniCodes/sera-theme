@@ -1,0 +1,83 @@
+<section class="blog">
+    <div class="container" style="margin-left: 5rem;">
+        <li class="nav-item" style="list-style: none; font-weight: 500; margin-bottom: 1rem;">
+            BLOG
+        </li>
+        {% for link in linklists[section.settings.blog_menu].links %}
+                {% if link.links == blank %}
+                    <li class="nav-item active" style="list-style: none;">
+                        <a class="nav-link" href={{link.url}}>
+                            {{link.title}}
+                        </a>                
+                    </li>   
+                {% endif %}
+        {% endfor %}
+        <div class="show-blogs">
+            <h3 style="font-family: IvyPresto Headline Reg;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 3rem;
+            text-align: left;
+            letter-spacing: .2px;
+            ">
+                {{blog.title}}
+            </h3>
+
+
+            <div class="blog-container"> 
+
+                <div class="blogs">
+                    {% for article in blog.articles %}
+                
+                        <div class="blog-info" id="blog-info" data-aos="fade-up"
+                        data-aos-offset="180"
+                        data-aos-delay="58"
+                        data-aos-duration="1000"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true">
+                            <h4 class="date" style="text-align: left;">
+                                {{ article.published_at | date: "%B %Y" }}
+                            </h4>
+                            <a href="{{article.url}}">{% if article.image %}
+                                <img src="{{ article.image | img_url: '400x400' }}" class="article-img" data-aos="fade-up"
+                                data-aos-offset="190"
+                                data-aos-delay="60"
+                                data-aos-duration="1000"
+                                data-aos-easing="ease-in-out"
+                                data-aos-mirror="true">
+                            {% endif %}
+                            </a>
+                            <div class="titles" style="text-align: left;">
+                                <h4>{{article.tags}}</h4>
+                                <h3 id="blog-title"><a href="{{article.url}}">{{article.title}}</a></h3>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+
+{% schema %}
+{
+    "name": "Blog Menu",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "blog_menu",
+            "label": "Blog Menu"
+        },
+        {
+            "type": "link_list",
+            "id": "blog",
+            "label": "Blog"
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,64 @@
+<section class="section-2">
+    <div class="section" data-aos="fade-up"
+    data-aos-offset="200"
+    data-aos-delay="50"
+    data-aos-duration="1500"
+    data-aos-easing="ease-in-out"
+    data-aos-mirror="true">
+        <div class="container">
+            <h2 data-aos="fade-up"
+            data-aos-offset="220"
+            data-aos-delay="60"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true">{{section.settings.title}}</h2>
+            <div class="collections-menu" data-aos="fade-up"
+            data-aos-offset="235"
+            data-aos-delay="62"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true">
+                <ul>
+                    {% for link in linklists[section.settings.collections_menu].links %}
+                    <li class="reveal">
+                        <a href="{{link.url}}">
+                            {{link.title}}
+
+                            {% assign collection = link.object %}
+                                {% if collection.image %}
+                                <img src="{{ collection | img_url: 'small' }}"  alt="{{ collection.title | escape }}" class="hidden" id="coll-img" display="block" width="120px" height="auto" />
+                                {% endif %}
+                            <!-- <img class="hover-img" src="{{ section.settings.image-1 | img_url: 'medium' }}"/> -->
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Home Section 2",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Collection"
+            },
+            {
+                "type": "link_list",
+                "id": "collections_menu",
+                "label": "Collections Menu"
+            },
+            {
+                "type": "image_picker",
+                "id": "image-1",
+                "label": "Collections Menu Image"
+            }
+
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,38 @@
+<section class="contact" style="margin-top: -36rem;">
+    <div class="container">
+        <h2 style="font-family: IvyPresto Headline Reg;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 4rem;
+        text-align: left;
+        letter-spacing: .2px;
+        text-transform: uppercase;">Get In Touch.</h2>
+
+        <ul style="padding: 0;
+        margin-top: 4rem;
+        display: block;">
+            <li style="width: 41%;"> +1{{shop.phone}}</li></a>
+            <a href="mailto:{{shop.email}}"><li>{{shop.email}}</li></a>
+            <li style="width: 60%;">{{shop.address.summary}}</li>
+        </ul>
+
+        <img src="{{section.settings.contact_image | img_url: '600x600'}}" style="width: 400px; border: 4px solid #433E3F; position: relative;
+        left: 45rem;
+        bottom: 11rem;"/>
+    </div>
+</section>
+
+
+
+{% schema %}
+{
+    "name": "Contact Us",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "contact_image",
+            "label": "Contact Us Image"
+        }          
+    ]
+}
+{% endschema %}

@@ -1,0 +1,274 @@
+<section class="menu">
+
+    <!-- NAV EXPAND -->
+    <div class="nav navbar navbar-expand-sm navbar-light">
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fal fa-bars" style="color: #433E3F; margin-left: -3.5rem; font-size: 1rem;"></i>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+           <ul>
+                {% for link in linklists[section.settings.main_linklist].links %}
+                    {% if link.links == blank and link.title != 'cart (0)' and link.title != '$ usd' and link.title != 'login' %}
+                        <li class="nav-item ">
+                            <a class="nav-link" href={{link.url}}>{{link.title}}
+                            </a>                
+                        </li>           
+                    {% endif %}
+
+
+                    <div class="rights">
+                        <span class="right">
+                            <!-- {% if link.links == blank and link.title contains 'cart' %}
+                            <li  class="nav-item ">
+                                <a class="nav-link" href={{link.url}}>{{link.title}}
+                                </a>
+                            </li>
+                            {% endif %} -->
+
+                            <div class="cart dropright show right"><a id="cartdetails" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" style="width:35vw;">
+                                <li class="cart-no nav-item nav-link " id="right"> cart({{cart.item_count}})</li></a>
+                                <div aria-labelledby="cartdetails" class="dropdown-menu dropdown-menu-right" id="cartdetails">
+                    
+                                <button id="close">x</button>
+                                {% if cart.item_count == 0 %}
+                                    <h3 class="cart-no">No items in yo cart</h3>
+
+                                    {% else %}
+                                    <h3 class="cart-no"> cart({{cart.item_count}} items)</h3>
+                                        
+                                {% endif %}
+                                    <!-- cart item-->
+
+                                
+                                {% for line_item in cart.items limit:2 %}
+                                    {% if cart.item_count <= 2 %}
+                                        <div class="dropright-item cart-product" style="right: -4.3rem; position: relative; width: 100px; margin-bottom: -2rem;">
+                                            <div class="d-flex">
+                                                <div class="img">
+                                                    <h4 class="img-1-text"><a href="/cart/change?line={{forloop.index}}&quantity=0" class="delete">Remove</a></h4>
+                                                    <a href="{{line_item.product.url}}">
+                                                        <img src="{{line_item.product.featured_image | img_url: '2048x'}}" alt="..." class="img-fluid">
+                                                    </a>
+                                                </div>
+                                                <div class="details product-info" style="width: 320px; margin-right: 0px;">
+                                                    <div style="text-align: -webkit-right; right: 6.8rem; position: relative; width: 192px;">
+                                                        <h4 class="img-1-text">
+                                                        <a href="{{line_item.product.url}}">{{line_item.product.title}}</a>
+                                                        </h4>
+                                                        <h4 class="img-1-text">Quantity: {{line_item.quantity}}</h4>
+                                                        <h4 class="price">{{line_item.product.price | money}} </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {% else %}
+                                    {% if cart.item_count > 2 %}
+                                    <div class="dropright-item cart-product" style="right: -4.3rem; position: relative; width: 100px; margin-bottom: -2rem;">
+                                        <div class="d-flex">
+                                            <div class="img">
+                                                <h4 class="img-1-text"><a href="/cart/change?line={{forloop.index}}&quantity=0" class="delete">Remove</a></h4>
+                                                <a href="{{line_item.product.url}}">
+                                                    <img src="{{line_item.product.featured_image | img_url: '2048x'}}" alt="..." class="img-fluid">
+                                                </a>
+                                            </div>
+                                            <div class="details product-info" style="width: 320px; margin-right: 0px;">
+                                                <div style="text-align: -webkit-right; right: 6.8rem; position: relative; width: 192px;">
+                                                    <h4 class="img-1-text">
+                                                    <a href="{{line_item.product.url}}">{{line_item.product.title}}</a>
+                                                    </h4>
+                                                    <h4 class="img-1-text">Quantity: {{line_item.quantity}}</h4>
+                                                    <h4 class="price">{{line_item.product.price | money}} </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endif %}
+                        
+                                <!-- total price-->
+                                <div class="dropdown-item total-price d-flex justify-content-between">
+                                        <h4 class="img-1-text">Total:</h4>
+                                        <h4 class="price">{{cart.total_price | money}}</strong>
+                                </div>
+                                <!-- call to actions-->
+                                <div class="dropdown-item CTA d-flex">
+                                        
+                                    <a href="/cart">
+                                        <button class="checkout" id="cart">
+                                            View Cart
+                                        </button> 
+                                    </a>
+
+                                    <form method="post" action="/cart">
+                                        <button type="submit" name="checkout" class="checkout" style="left: 12rem;">
+                                            Checkout
+                                        </button>
+                                    </form>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        </span>  
+                        
+                        <span class="right-1">
+                            {% if link.links == blank and link.title contains 'usd' %}
+                            <li  class="nav-item " id="right">
+                                <a class="nav-link" href={{link.url}}>{{link.title}}
+                                </a>
+                            </li>
+                            {% endif %}
+                        </span>  
+                        
+                        <span class="right-2">
+                            {% if link.links == blank and link.title contains 'log' %}
+                            {% if shop.customer_accounts_enabled %}
+                            {% if customer %}
+                            <li  class="nav-item " id="right">
+                                <a class="nav-link" href='/account'>account
+                                </a>
+                            </li>
+                            <li  class="nav-item " id="right">
+                                <a class="nav-link" href='/account/logout'>logout
+                                </a>
+                            </li>
+                            {% else %}                             
+                            <li  class="nav-item " id="right">
+                                <a class="nav-link" href={{link.url}}>{{link.title}}
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                        </span>
+                    </div>
+
+                 
+                
+                    {% if link.links != blank %}
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            menu
+                        </a>
+                        <div class="dropdown-menu full-width" aria-labelledby="navbarDropdown">
+                            <div class="row">
+                                {% for childlink in link.links %}
+                                    <div class="col">
+                                        <div class="dropdown-header">{{childlink.title}}</div>
+                                        {% for sublink in childlink.links %}
+                                            <a id="dropdown-item" href={{sublink.url}}>{{sublink.title}}</a>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                          </div>
+                        </li>
+                    {% endif %}
+                {% endfor %} 
+                <span class="logo">
+                    <li>
+                        <a class="nav-link" href="/">
+                        <img src="{{ section.settings.logo | img_url: '150x' }}" alt="">                        </a>
+                    </li>
+                </span>
+            </ul>   
+    </div>
+
+
+    <div class="mobile-logo" style="display: none;">
+        <a href="/"><img src="{{ 'sera.png' | asset_url }}" alt=""></a>
+    </div>
+
+    <div id="carts" style="display:none" class="cart dropdown show"><a id="cartdetails" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle" style="width:35vw;">
+        <li class="cart-no nav-item nav-link " style="margin-top: .8rem;" id="right"> cart({{cart.item_count}})</li></a>
+        <div aria-labelledby="cartdetails" class="dropdown-menu dropdown-menu" id="cartdetails">
+    
+        <button id="close">x</button>
+        {% if cart.item_count == 0 %}
+            <h3 class="cart-no">No items in yo cart</h3>
+    
+            {% else %}
+            <h3 class="cart-no"> cart({{cart.item_count}} items)</h3>
+                
+        {% endif %}
+            <!-- cart item-->
+    
+        
+        {% for line_item in cart.items limit:2 %}
+            {% if cart.item_count <= 2 %}
+                <div class="dropright-item cart-product" style="right: -4.3rem; position: relative; width: 100px; margin-bottom: -2rem;">
+                    <div class="d-flex">
+                        <div class="img">
+                            <h4 class="img-1-text"><a href="/cart/change?line={{forloop.index}}&quantity=0" class="delete">Remove</a></h4>
+                            <a href="{{line_item.product.url}}">
+                                <img src="{{line_item.product.featured_image | img_url: '2048x'}}" alt="..." class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="details product-info" style="width: 320px; margin-right: 0px;">
+                            <div style="text-align: -webkit-right; right: 6.8rem; position: relative; width: 192px; top: 4rem;">
+                                <h4 class="img-1-text">
+                                <a href="{{line_item.product.url}}">{{line_item.product.title}}</a>
+                                </h4>
+                                <h4 class="img-1-text">Quantity: {{line_item.quantity}}</h4>
+                                <h4 class="price">{{line_item.product.price | money}} </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            {% else %}
+            {% if cart.item_count > 2 %}
+            <div class="dropright-item cart-product" style="right: -4.3rem; position: relative; width: 100px; margin-bottom: -2rem;">
+                <div class="d-flex">
+                    <div class="img">
+                        <h4 class="img-1-text"><a href="/cart/change?line={{forloop.index}}&quantity=0" class="delete">Remove</a></h4>
+                        <a href="{{line_item.product.url}}">
+                            <img src="{{line_item.product.featured_image | img_url: '2048x'}}" alt="..." class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="details product-info" style="width: 320px; margin-right: 0px;">
+                        <div style="text-align: -webkit-right; right: 6.8rem; position: relative; width: 192px; top: 4rem;">
+                            <h4 class="img-1-text">
+                            <a href="{{line_item.product.url}}">{{line_item.product.title}}</a>
+                            </h4>
+                            <h4 class="img-1-text">Quantity: {{line_item.quantity}}</h4>
+                            <h4 class="price">{{line_item.product.price | money}} </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+    
+        <!-- total price-->
+        <div class="dropdown-item total-price d-flex justify-content-between">
+                <h4 class="img-1-text">Total:</h4>
+                <h4 class="price">{{cart.total_price | money}}</strong>
+        </div>
+        <!-- call to actions-->
+        <div class="dropdown-item CTA d-flex">
+                
+            <a href="/cart">
+                <button class="checkout" id="cart">
+                    View Cart
+                </button> 
+            </a>
+    
+            <form method="post" action="/cart">
+                <button type="submit" name="checkout" class="checkout" style="left: 12rem;">
+                    Checkout
+                </button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+</section>
+
+
+
+           

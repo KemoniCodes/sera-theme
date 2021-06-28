@@ -1,0 +1,36 @@
+<section class="header">
+    <div class="top-header">
+        <h3>{{section.settings.header-text}}</h3>
+    </div>
+</section>
+
+{% include 'menu' %}
+
+{% schema %}
+    {
+        "name": "Main Menu",
+        "settings": [
+            {
+                "type": "link_list",
+                "id": "main_linklist",
+                "label": "Menu",
+                "default": "main-menu"
+            },
+            {
+                "type": "image_picker",
+                "id": "logo",
+                "label": "Logo"
+            },
+            {
+                "type": "text",
+                "id": "header-text",
+                "label": "Header Text",
+                "default": "Free Shipping On Orders Over $75",
+                "info": "text",
+                "placeholder": "text"
+            }
+        ]
+    }
+{% endschema %}
+
+

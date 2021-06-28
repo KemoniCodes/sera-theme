@@ -1,0 +1,109 @@
+<section class="section-1">
+    <div class="section">
+        <div data-aos="fade-up"
+        data-aos-offset="180"
+        data-aos-delay="50"
+        data-aos-duration="1000"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true">
+            <h3>{{section.settings.sub-title}}</h3>
+            <h2><span>{{section.settings.italic-span}}</span> {{section.settings.title}}</h2>
+        </div>
+       
+        {% assign collection = collections [section.settings.collection] %}
+        <div class="images-1">
+            {% for product in collection.products limit: section.settings.product_limit %}
+            <div class="img-container-1">
+                <div>
+                    <!-- <a href="{{product.url}}">
+                        <div class="reveal">
+                            <img class="img-3" data-aos="fade-up"
+                            data-aos-offset="190"
+                            data-aos-delay="55"
+                            data-aos-duration="1000"
+                            data-aos-easing="ease-in-out"
+                            data-aos-mirror="true" src="{{product.featured_image.src | img_url: '500x500'}}"/>
+                        </div>
+                            <img class="hidden" src="{{ product.images.last | img_url: '450x450' }}"/>
+                    </a> -->
+                    <a href="{{product.url}}">
+                    <div class="img-3 reveal" data-aos="fade-up" data-aos-offset="190"
+                    data-aos-delay="55"
+                    data-aos-duration="800"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true">
+                        <img src="{{product.featured_image.src | img_url: '500x500'}}" style="width: 335px; height: 505px">
+                        <img class="hidden" src="{{ product.images.last | img_url: '500x500' }}" alt="{{ product.images.last.alt | escape }}" style="width: 335px; height: 505px"/>
+                      </div>
+                    </a>
+
+                    <div class="product-info" data-aos="fade-up"
+                    data-aos-offset="50"
+                    data-aos-delay="57"
+                    data-aos-duration="750"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true">
+                        <h4 class="img-1-text"><a href="{{product.url}}">{{product.title}}</a></h4>
+                        <h4 class="price">{{product.price | money}}</h4>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <h3 id="collection-desc" data-aos="fade-up"
+        data-aos-offset="180"
+        data-aos-delay="58"
+        data-aos-duration="900"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true">{{section.settings.collection-desc}}</h3>
+
+        
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Home Section 1",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Shop New Pieces"
+            },
+            {
+                "type": "text",
+                "id": "italic-span",
+                "label": "italicize",
+                "default": "Shop"
+            },
+            {
+                "type": "text",
+                "id": "sub-title",
+                "label": "Sub Heading",
+                "default": "New Collection"
+            },
+            {        
+                "type": "textarea",
+                "id": "collection-desc",
+                "label": "Collection Description",
+                "default": "value",
+                "info": "text",
+                "placeholder": "text"
+            },
+            {
+                "type": "collection",
+                "id": "collection",
+                "label": "Collection"
+            },
+            {
+                "type": "range",
+                "id": "product_limit",
+                "label": "Product Limit",
+                "min": 3,
+                "max": 9,
+                "default": 6
+            }
+        ]
+    }
+{% endschema %}

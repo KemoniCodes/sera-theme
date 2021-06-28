@@ -1,0 +1,74 @@
+<section class="section-4" data-aos="fade-up"
+data-aos-offset="200"
+data-aos-delay="50"
+data-aos-duration="1500"
+data-aos-easing="ease-in-out"
+data-aos-mirror="true">
+    <div class="section">
+        <div class="container">
+            <div class="row-1" data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="1100"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true">
+                <h3>{{section.settings.sub-title}}</h3> 
+
+                <h2>{{section.settings.title}}
+                </h2>
+                <!-- <h3 class="collection-desc"> Your email <span>→</span> -->
+                <!-- <input type="email"
+                    name="customer[email]"
+                    id="customerEmail"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    autocomplete="email"
+                    > -->
+                <!-- </h3> -->
+
+                    <form id="contact-form" method="post" action="" role="form">  
+                      <div class="form-group">
+                        <input type="email" placeholder="Your email    →" class="form-control collection-desc" name="email" id="email">
+                      </div>
+                      <div>
+                        <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit" style="display: none">
+                      </div>
+                    </form>
+                    
+            </div>
+            <div class="row-1">
+                <img src="{{section.settings.subscribe | img_url: '600x600'}}" data-aos="fade-up"
+                data-aos-offset="220"
+                data-aos-delay="58"
+                data-aos-duration="1000"
+                data-aos-easing="ease-in-out"
+                data-aos-mirror="false">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Home Section 4",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Shop New Pieces"
+            },
+            {
+                "type": "text",
+                "id": "sub-title",
+                "label": "Sub Heading",
+                "default": "Get in on the latest launches"
+            },
+            {
+                "type": "image_picker",
+                "id": "subscribe",
+                "label": "Subscribe Image"
+            }
+        ]
+    }
+{% endschema %}
